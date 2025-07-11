@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<h1 class="mb-4"><%= title %> - <%= aset.nama_koin %></h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form action="/update/<%= aset.id %>?_method=PUT" method="POST">
+            <div class="mb-3">
+                <label for="nama_koin" class="form-label">Nama Koin</label>
+                <input type="text" class="form-control" id="nama_koin" name="nama_koin" value="<%= aset.nama_koin %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="simbol_koin" class="form-label">Simbol Koin</label>
+                <input type="text" class="form-control" id="simbol_koin" name="simbol_koin" value="<%= aset.simbol_koin %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="jumlah_koin" class="form-label">Jumlah Koin</label>
+                <input type="number" step="0.00000001" class="form-control" id="jumlah_koin" name="jumlah_koin" value="<%= aset.jumlah_koin %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="harga_beli_rata_rata" class="form-label">Harga Beli Rata-rata (USD)</label>
+                <input type="number" step="0.01" class="form-control" id="harga_beli_rata_rata" name="harga_beli_rata_rata" value="<%= aset.harga_beli_rata_rata %>" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="/" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

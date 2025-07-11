@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3"><%= title %></h1>
+    <a href="/add" class="btn btn-primary">➕ Tambah Aset</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Koin</th>
+                        <th>Jumlah</th>
+                        <th>Harga Beli Rata-rata ($)</th>
+                        <th>Total Modal ($)</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(data.length) { %>
+                        <% data.forEach((aset, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td>
+                                    <strong><%= aset.nama_koin %></strong><br>
+                                    <small class="text-muted"><%= aset.simbol_koin %></small>
+                                </td>
+                                <td><%= parseFloat(aset.jumlah_koin).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8}) %></td>
+                                <td><%= parseFloat(aset.harga_beli_rata_rata).toLocaleString('en-US', {style: 'currency', currency: 'USD'}) %></td>
+                                <td><%= parseFloat(aset.total_modal).toLocaleString('en-US', {style: 'currency', currency: 'USD'}) %></td>
+                                <td class="action-buttons">
+                                    <a href="/edit/<%= aset.id %>" class="btn btn-sm btn-warning">Edit</a>
+                                    <form action="/delete/<%= aset.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus aset ini?');">
+                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="6" class="text-center">Belum ada aset di portofolio.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
